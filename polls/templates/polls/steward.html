@@ -1,15 +1,20 @@
 <h1> Welcome to SIA In-Flight Digital Steward </h1>
-<h2> Please select your seat number and indicate your meal preferences: </h2>
+<h2> Meal-Preferences for All Passengers </h2>
+
 
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href= "{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+		<h1>{{ question.question_text }}</h1>
+			<ul>
+				{% for choice in question.choice_set.all %}
+				    <li>{{ choice.choice_text }} -- {{ choice.seat }}</li>
+				{% endfor %}
+			</ul>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
-
 
 <a href="{% url 'polls:main' %}">Back to Main Screen</a>
